@@ -35,6 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# ignore pocketbase
+pb_data
+pocketbase
+
 # custom
 .vscode
 notes.md
