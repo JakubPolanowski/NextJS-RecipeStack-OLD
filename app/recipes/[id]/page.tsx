@@ -1,8 +1,6 @@
-import { notEqual } from "assert";
-
-async function getNote(noteId: string) {
+async function getRecipe(recipeId: string) {
   const res = await fetch(
-    `http://127.0.0.1:8090/api/collections/recipes/records/${noteId}`,
+    `http://127.0.0.1:8090/api/collections/recipes/records/${recipeId}`,
     {
       next: { revalidate: 10 },
     }
@@ -12,7 +10,7 @@ async function getNote(noteId: string) {
 }
 
 export default async function RecipePage({ params }: any) {
-  const recipe = await getNote(params.id);
+  const recipe = await getRecipe(params.id);
 
   return (
     <div>
