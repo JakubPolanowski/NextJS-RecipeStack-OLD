@@ -1,3 +1,6 @@
+import "../styles/globals.css";
+import "../styles/NavBar.component.css";
+
 async function getCollection(name: string) {
   const res = await fetch(
     `http://127.0.0.1:8090/api/collections/${name}/records?page=1&perPage=30`
@@ -20,7 +23,7 @@ function MenuItem({ item }: any) {
 
 export default async function Navbar() {
   const flavors = await getCollection("flavors");
-  const meals = await getCollection("meal");
+  const meals = await getCollection("meals");
   const ingredients = await getCollection("ingredients");
   const diets = await getCollection("diets");
 
