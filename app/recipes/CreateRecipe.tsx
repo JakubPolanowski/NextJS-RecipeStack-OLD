@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CreateRecipe() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const router = useRouter();
 
   const create = async () => {
     await fetch("http://127.0.0.1:8090/api/collections/recipes/records", {
@@ -20,6 +23,8 @@ export default function CreateRecipe() {
 
     setContent("");
     setTitle("");
+
+    router.refresh();
   };
 
   return (
