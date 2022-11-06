@@ -1,12 +1,18 @@
+import Navbar from "../components/Navbar";
+
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html>
       <head></head>
-      <body>{children}</body>
+      <body>
+        {/* @ts-ignore - line below is technically a Promise<Element> but works*/}
+        <Navbar />
+        {children}
+      </body>
     </html>
-  )
+  );
 }
