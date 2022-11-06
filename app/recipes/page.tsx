@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CreateRecipe from "./CreateRecipe";
 
 async function getRecipes() {
   const res = await fetch(
@@ -20,6 +21,7 @@ export default async function RecipesPage() {
           return <Recipe key={recipe.id} recipe={recipe} />;
         })}
       </div>
+      <CreateRecipe />
     </div>
   );
 }
