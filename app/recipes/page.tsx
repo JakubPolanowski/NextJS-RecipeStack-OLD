@@ -1,13 +1,15 @@
 import Link from "next/link";
-import PocketBase from "pocketbase";
 
 async function getRecipes() {
-  const client = new PocketBase("http://127.0.0.1:8090");
-  const resultList = await client.records.getList("recipes", 1, 50);
-  return resultList?.items as any[];
+  const res = await fetch(
+    "http://127.0.0.1:8090/api/collections/notes/records?page=1&perPage=30",
+    { cache: "no-store" }
+  );
+  const data = await res.json();
+  return data?.items as any[];
 }
 
-export default async function RecipePage() {
+export default async function RecipesPage() {
   const recipes = await getRecipes();
 
   return (
