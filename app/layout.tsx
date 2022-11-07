@@ -10,7 +10,7 @@ export default function RootLayout({
     <html>
       <head></head>
       <body>
-        {/* @ts-ignore - line below is technically a Promise<Element> but works*/}
+        {/* @ts-ignore - although typescript is unhappy, the navbar is statically rendered by default and therefore the fact that it's return type is technically a Promise<Element> is not an actual problem*/}
         <Navbar />
         {children}
       </body>
