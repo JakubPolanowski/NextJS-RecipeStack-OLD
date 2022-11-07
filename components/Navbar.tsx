@@ -1,21 +1,22 @@
 import "../styles/globals.css";
 import "../styles/NavBar.component.css";
 
-async function getCollection(name: string) {
+async function getCollection(name: string, expand = "") {
+  expand = `expand=${expand}&` || "";
   const res = await fetch(
-    `http://127.0.0.1:8090/api/collections/${name}/records?page=1&perPage=30`
+    `http://127.0.0.1:8090/api/collections/${name}/records?${expand}page=1&perPage=30`
   );
   const data = await res.json();
   return data?.items as any[];
 }
 
 function MenuItem({ item }: any) {
-  const { name } = item || {};
+  const { key, name } = item || {};
 
   // TODO item should open search with clicked item as search param
 
   return (
-    <li>
+    <li key={key}>
       <a href="#">{name}</a>
     </li>
   );
@@ -24,7 +25,7 @@ function MenuItem({ item }: any) {
 export default async function Navbar() {
   const flavors = await getCollection("flavors");
   const meals = await getCollection("meals");
-  const ingredients = await getCollection("ingredients");
+  const ingredients = await getCollection("ingredient_groups", "ingredients");
   const diets = await getCollection("diets");
 
   return (
@@ -53,7 +54,21 @@ export default async function Navbar() {
           <a href="#">Ingredients</a>
           <ul>
             {ingredients?.map((item) => {
-              return <MenuItem key={item.id} item={item} />;
+              const v = <a href="#">1</a>;
+              return (
+                <li key={item.key}>
+                  <a href="#">{item.name}</a>
+                  <ul>
+                    {item["@expand"]?.ingredients?.map((ingredient: any) => {
+                      return (
+                        <li key={ingredient.key}>
+                          <a href="#">{ingredient.name}</a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              );
             })}
           </ul>
         </li>
