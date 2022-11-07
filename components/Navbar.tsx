@@ -54,19 +54,20 @@ export default async function Navbar() {
           <a href="#">Ingredients</a>
           <ul>
             {ingredients?.map((item) => {
-              const v = <a href="#">1</a>;
               return (
                 <li key={item.key}>
                   <a href="#">{item.name}</a>
-                  <ul>
-                    {item["@expand"]?.ingredients?.map((ingredient: any) => {
-                      return (
-                        <li key={ingredient.key}>
-                          <a href="#">{ingredient.name}</a>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  {"@expand" in item && (
+                    <ul>
+                      {item["@expand"].ingredients?.map((ingredient: any) => {
+                        return (
+                          <li key={ingredient.key}>
+                            <a href="#">{ingredient.name}</a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </li>
               );
             })}
